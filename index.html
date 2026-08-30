@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan de Calidad y Despliegue - Albor Velas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1E3A5F;
+            --primary-light: #2A5298;
+            --accent: #E8A838;
+            --bg: #F5F7FA;
+            --card: #FFFFFF;
+            --text: #1A1A2E;
+            --text-muted: #4A4A6A;
+            --border: #D1D5DB;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --success: #22C55E;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.10);
+            padding: 50px 60px;
+        }
+
+        /* ── Encabezado ── */
+        .plan-header {
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .plan-header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .plan-header h1 i {
+            color: var(--accent);
+        }
+
+        .plan-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .plan-header .meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .plan-header .meta span i {
+            color: var(--accent);
+            margin-right: 6px;
+        }
+
+        .plan-header .version {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* ── Tabla de contenido ── */
+        .toc {
+            background: var(--bg);
+            padding: 24px 30px;
+            border-radius: var(--radius);
+            margin-bottom: 40px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .toc h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 6px 20px;
+        }
+
+        .toc-grid a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+            transition: 0.2s;
+        }
+
+        .toc-grid a:hover {
+            border-bottom-color: var(--accent);
+            color: var(--primary-light);
+        }
+
+        .toc-grid a i {
+            color: var(--accent);
+            width: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* ── Secciones ── */
+        section {
+            margin-bottom: 48px;
+            scroll-margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+
+        .section-title .badge-step {
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 999px;
+            margin-left: auto;
+        }
+
+        .section-intro {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* ── Tarjetas ── */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 16px 0;
+        }
+
+        .card {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+        }
+
+        .card h4 {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .card h4 i {
+            color: var(--accent);
+            margin-right: 8px;
+            width: 20px;
+        }
+
+        .card p,
+        .card li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            margin-top: 4px;
+        }
+
+        .card ul li {
+            margin-bottom: 2px;
+        }
+
+        .card .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ── Tablas ── */
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin: 12px 0 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        table thead {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        table th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        table tbody tr:hover {
+            background: rgba(30, 58, 95, 0.04);
+        }
+
+        table .label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ── Lista de pasos ── */
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: var(--bg);
+            padding: 14px 20px;
+            border-radius: var(--radius);
+            border-left: 3px solid var(--accent);
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .step-item .step-text {
+            color: var(--text-muted);
+        }
+
+        .step-item .step-text strong {
+            color: var(--text);
+        }
+
+        /* ── Grid de documentos ── */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .doc-item {
+            background: var(--bg);
+            padding: 14px 18px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .doc-item i {
+            font-size: 1.4rem;
+            color: var(--accent);
+            width: 32px;
+            text-align: center;
+        }
+
+        .doc-item .doc-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .doc-item .doc-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Criterios ── */
+        .criteria-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            border-left: 5px solid var(--accent);
+            margin-top: 16px;
+        }
+
+        .criteria-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .criteria-box ul {
+            list-style: none;
+            display: grid;
+            gap: 6px;
+        }
+
+        .criteria-box ul li::before {
+            content: "✓ ";
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ── Diagrama de flujo ── */
+        .flow-diagram {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            border: 1px solid var(--border);
+            text-align: center;
+            font-family: 'Inter', monospace;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            color: var(--text-muted);
+        }
+
+        .flow-diagram .flow-step {
+            display: inline-block;
+            background: var(--card);
+            padding: 4px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-weight: 500;
+            margin: 0 4px;
+        }
+
+        .flow-diagram .flow-arrow {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ── Presupuesto ── */
+        .budget-table td:last-child {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .budget-total {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .budget-total td {
+            color: #fff !important;
+        }
+
+        /* ── Conclusiones ── */
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .conclusion-item {
+            background: var(--bg);
+            padding: 20px 24px;
+            border-radius: var(--radius);
+            border-top: 3px solid var(--accent);
+        }
+
+        .conclusion-item h4 {
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .conclusion-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ── Footer ── */
+        .plan-footer {
+            border-top: 2px solid var(--border);
+            padding-top: 30px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .plan-footer strong {
+            color: var(--primary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: var(--success);
+            color: #fff;
+            padding: 2px 14px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 20px;
+            }
+
+            .plan-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .plan-header .meta {
+                flex-direction: column;
+                gap: 6px;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .conclusion-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .flow-diagram {
+                font-size: 0.75rem;
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 16px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 30px;
+            }
+            .card:hover {
+                border-color: var(--border);
+            }
+            .toc {
+                background: #f9f9f9;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ============================================================ -->
+        <!-- ENCABEZADO                                                    -->
+        <!-- ============================================================ -->
+        <header class="plan-header">
+            <h1><i class="fas fa-clipboard-check"></i> Plan de Calidad, Pruebas y Despliegue</h1>
+            <p class="subtitle">Sistema de Gestión Integral · Albor Velas y Detalles</p>
+            <div class="meta">
+                <span><i class="fas fa-user"></i> Mateo Toro Alvarez</span>
+                <span><i class="fas fa-calendar-alt"></i> Agosto 2026</span>
+                <span><i class="fas fa-university"></i> Fundación Universitaria Católica del Norte</span>
+                <span><i class="fas fa-tag"></i> Ingeniería de Requisitos</span>
+            </div>
+            <span class="version"><i class="fas fa-code-branch"></i> Versión 1.0 <span class="status-badge" style="margin-left:10px;"></span></span>
+        </header>
+
+        <!-- ============================================================ -->
+        <!-- TABLA DE CONTENIDO                                            -->
+        <!-- ============================================================ -->
+        <div class="toc">
+            <h3><i class="fas fa-list"></i> Contenido del Plan</h3>
+            <div class="toc-grid">
+                <a href="#sec-calidad"><i class="fas fa-check-circle"></i> 1. Modelo de Calidad</a>
+                <a href="#sec-metricas"><i class="fas fa-chart-bar"></i> 2. Métricas de Calidad</a>
+                <a href="#sec-pruebas"><i class="fas fa-flask"></i> 3. Plan de Pruebas</a>
+                <a href="#sec-configuracion"><i class="fas fa-code-branch"></i> 4. Gestión de Configuración</a>
+                <a href="#sec-despliegue"><i class="fas fa-rocket"></i> 5. Plan de Despliegue</a>
+                <a href="#sec-soporte"><i class="fas fa-headset"></i> 6. Soporte Post-Entrega</a>
+                <a href="#sec-documentacion"><i class="fas fa-file-alt"></i> 7. Documentación</a>
+                <a href="#sec-cronograma"><i class="fas fa-calendar-alt"></i> 8. Cronograma</a>
+                <a href="#sec-roles"><i class="fas fa-users"></i> 9. Roles del Equipo</a>
+                <a href="#sec-flujo"><i class="fas fa-project-diagram"></i> 10. Flujo de Incidencias</a>
+                <a href="#sec-presupuesto"><i class="fas fa-coins"></i> 11. Presupuesto</a>
+                <a href="#sec-conclusiones"><i class="fas fa-flag-checkered"></i> Conclusiones</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 1: MODELO DE CALIDAD                                  -->
+        <!-- ============================================================ -->
+        <section id="sec-calidad">
+            <h2 class="section-title">
+                <i class="fas fa-check-circle"></i> 1. Modelo de Calidad
+                <span class="badge-step">ISO/IEC 25010</span>
+            </h2>
+
+            <p class="section-intro">
+                El modelo seleccionado para este proyecto es <strong>ISO/IEC 25010 (SQuaRE)</strong>,
+                que define 8 características de calidad del producto. Se eligió por ser un
+                estándar internacional enfocado específicamente en la evaluación de software,
+                alineado con las necesidades críticas del negocio.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4><i class="fas fa-bullseye"></i> Justificación</h4>
+                    <ul>
+                        <li><strong>Enfoque en producto:</strong> Evalúa el software en sí, no solo los procesos.</li>
+                        <li><strong>Alineación:</strong> Sus 8 características encajan con las necesidades de Albor Velas.</li>
+                        <li><strong>Medible:</strong> Permite definir métricas cuantitativas y pruebas trazables.</li>
+                        <li><strong>Respaldo:</strong> Estándar reconocido, compatible con otros marcos.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-list-ul"></i> Características clave</h4>
+                    <ul>
+                        <li><span class="highlight">Adecuación funcional</span> – Cumple los requisitos del negocio.</li>
+                        <li><span class="highlight">Usabilidad</span> – Interfaz intuitiva para el equipo.</li>
+                        <li><span class="highlight">Fiabilidad</span> – Alta disponibilidad y tolerancia a fallos.</li>
+                        <li><span class="highlight">Seguridad</span> – Protección de datos de clientes y transacciones.</li>
+                        <li><span class="highlight">Mantenibilidad</span> – Código limpio y fácil de evolucionar.</li>
+                        <li><span class="highlight">Desempeño</span> – Respuesta rápida en consultas.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-sync-alt"></i> Enfoque complementario</h4>
+                    <p>
+                        Si bien el modelo principal es <strong>ISO/IEC 25010</strong>,
+                        se toman buenas prácticas de <strong>CMMI Nivel 2 (Gestionado)</strong>
+                        para estructurar el seguimiento, control y planificación del proyecto.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 2: MÉTRICAS                                           -->
+        <!-- ============================================================ -->
+        <section id="sec-metricas">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i> 2. Métricas de Calidad
+                <span class="badge-step">6 métricas</span>
+            </h2>
+
+            <p class="section-intro">
+                Se definen 6 métricas cuantitativas alineadas con las características de ISO/IEC 25010,
+                con metas específicas para garantizar la calidad del producto.
+            </p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Métrica</th>
+                            <th>ISO/IEC 25010</th>
+                            <th>Forma de medición</th>
+                            <th>Meta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td class="label">Tasa de defectos</td>
+                            <td>Fiabilidad</td>
+                            <td>(Defectos en prod / Total defectos) × 100</td>
+                            <td>&lt; 5% escapen a producción</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td class="label">Cobertura de pruebas</td>
+                            <td>Mantenibilidad / Fiabilidad</td>
+                            <td>% líneas/ramas ejecutadas por pruebas automatizadas</td>
+                            <td>≥ 80% en módulos críticos</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td class="label">Tiempo de respuesta</td>
+                            <td>Eficiencia de desempeño</td>
+                            <td>ms en responder peticiones (JMeter, k6)</td>
+                            <td>&lt; 2 segundos (p95)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td class="label">Complejidad ciclomática</td>
+                            <td>Mantenibilidad</td>
+                            <td>N° de caminos independientes (SonarQube)</td>
+                            <td>≤ 10 por función</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td class="label">Disponibilidad (uptime)</td>
+                            <td>Fiabilidad</td>
+                            <td>% tiempo operativo (UptimeRobot, Grafana)</td>
+                            <td>≥ 99.5% mensual</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td class="label">Satisfacción del usuario</td>
+                            <td>Usabilidad</td>
+                            <td>Encuestas NPS / escala Likert</td>
+                            <td>≥ 4/5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 3: PLAN DE PRUEBAS                                    -->
+        <!-- ============================================================ -->
+        <section id="sec-pruebas">
+            <h2 class="section-title">
+                <i class="fas fa-flask"></i> 3. Plan de Pruebas
+                <span class="badge-step">7 tipos + 10 casos</span>
+            </h2>
+
+            <p class="section-intro">
+                El plan de pruebas cubre todos los niveles necesarios para garantizar la
+                calidad del sistema antes de su puesta en producción.
+            </p>
+
+            <h4 style="color:var(--primary); margin:16px 0 12px; font-weight:600;">
+                <i class="fas fa-list-ul" style="color:var(--accent);"></i> Tipos de pruebas
+            </h4>
+            <div class="card-grid">
+                <div class="card"><h4><i class="fas fa-vial"></i> Unitarias</h4><p>Validan funciones y componentes individuales.</p></div>
+                <div class="card"><h4><i class="fas fa-link"></i> Integración</h4><p>Validan comunicación entre módulos.</p></div>
+                <div class="card"><h4><i class="fas fa-cogs"></i> Sistema</h4><p>Validan el sistema completo end-to-end.</p></div>
+                <div class="card"><h4><i class="fas fa-user-check"></i> Aceptación (UAT)</h4><p>Validan que el sistema cumple los requisitos del usuario final.</p></div>
+                <div class="card"><h4><i class="fas fa-tachometer-alt"></i> Carga / Rendimiento</h4><p>Validan comportamiento bajo múltiples usuarios concurrentes.</p></div>
+                <div class="card"><h4><i class="fas fa-shield-alt"></i> Seguridad</h4><p>Validan control de acceso y protección de datos.</p></div>
+                <div class="card"><h4><i class="fas fa-mouse-pointer"></i> Usabilidad</h4><p>Validan que la interfaz sea intuitiva.</p></div>
+            </div>
+
+            <h4 style="color:var(--primary); margin:24px 0 12px; font-weight:600;">
+                <i class="fas fa-list-check" style="color:var(--accent);"></i> Casos de prueba
+            </h4>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Caso de prueba</th>
+                            <th>Entrada / Acción</th>
+                            <th>Resultado esperado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td class="label">Registro de cliente nuevo</td><td>Datos válidos</td><td>Registro creado, confirmación mostrada</td></tr>
+                        <tr><td>2</td><td class="label">Registro de pedido con productos</td><td>Selección de productos</td><td>Pedido creado, inventario actualizado</td></tr>
+                        <tr><td>3</td><td class="label">Actualización de estado de pedido</td><td>Cambiar a "En producción"</td><td>Estado actualizado, notificación al cliente</td></tr>
+                        <tr><td>4</td><td class="label">Consulta de inventario en tiempo real</td><td>Buscar "cera para velas"</td><td>Cantidad exacta disponible</td></tr>
+                        <tr><td>5</td><td class="label">Registro de pago parcial</td><td>Abono $20.000 sobre $60.000</td><td>Pago registrado, saldo actualizado</td></tr>
+                        <tr><td>6</td><td class="label">Búsqueda de pedidos</td><td>Nombre "María" + estado "En producción"</td><td>Pedidos filtrados correctamente</td></tr>
+                        <tr><td>7</td><td class="label">Reporte de ventas mensual</td><td>Mes "Agosto 2026"</td><td>Reporte con ingresos y productos top</td></tr>
+                        <tr><td>8</td><td class="label">Login con credenciales inválidas</td><td>Usuario/contraseña incorrectos</td><td>Acceso denegado</td></tr>
+                        <tr><td>9</td><td class="label">Notificación automática</td><td>Estado → "Empacado"</td><td>Notificación enviada al cliente</td></tr>
+                        <tr><td>10</td><td class="label">Cancelación de pedido</td><td>Pedido en "En producción"</td><td>Estado "Cancelado", inventario restaurado</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="criteria-box">
+                <h4><i class="fas fa-check-double"></i> Criterios de aceptación</h4>
+                <ul>
+                    <li>100% de casos de prueba críticos deben pasar sin errores.</li>
+                    <li>Cobertura de pruebas ≥ 80% en módulos críticos.</li>
+                    <li>Cero defectos de severidad "crítica" o "alta" abiertos.</li>
+                    <li>Tiempo de respuesta &lt; 2 segundos bajo carga normal.</li>
+                    <li>Validación y firma de conformidad por la propietaria de Albor Velas.</li>
+                    <li>Funcional en Chrome, Firefox, Safari (mobile y desktop).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 4: GESTIÓN DE LA CONFIGURACIÓN                        -->
+        <!-- ============================================================ -->
+        <section id="sec-configuracion">
+            <h2 class="section-title">
+                <i class="fas fa-code-branch"></i> 4. Gestión de la Configuración
+                <span class="badge-step">Gitflow + 3 entornos</span>
+            </h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4><i class="fab fa-git-alt"></i> Control de versiones</h4>
+                    <ul>
+                        <li><strong>Herramienta:</strong> Git + GitHub/GitLab</li>
+                        <li><strong>Estrategia:</strong> Gitflow (main, develop, feature/*, release/*, hotfix/*)</li>
+                        <li><strong>Versionado:</strong> Semántico (MAJOR.MINOR.PATCH)</li>
+                        <li><strong>Commits:</strong> Convencionales (feat:, fix:, docs:, etc.)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-layer-group"></i> Entornos diferenciados</h4>
+                    <ul>
+                        <li><strong>Desarrollo:</strong> Local, integración continua</li>
+                        <li><strong>Pruebas/QA (staging):</strong> Replica producción, datos ficticios</li>
+                        <li><strong>Producción:</strong> Datos reales, acceso restringido</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-clipboard-list"></i> Control de cambios</h4>
+                    <ul>
+                        <li>Pull requests con <strong>code review</strong> obligatoria</li>
+                        <li>CHANGELOG.md para registrar cambios</li>
+                        <li>Vincular a tickets en Jira/Trello/GitHub Projects</li>
+                        <li>Variables de entorno con <code>.env</code> (no versionado)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 5: PLAN DE DESPLIEGUE                                 -->
+        <!-- ============================================================ -->
+        <section id="sec-despliegue">
+            <h2 class="section-title">
+                <i class="fas fa-rocket"></i> 5. Plan de Despliegue e Instalación
+                <span class="badge-step">7 pasos</span>
+            </h2>
+
+            <p class="section-intro">
+                A continuación se detallan los pasos para desplegar el sistema en el entorno
+                de producción de Albor Velas y Detalles.
+            </p>
+
+            <div style="background:var(--bg); border-radius:var(--radius); padding:20px 24px; margin-bottom:24px; border:1px solid var(--border);">
+                <h4 style="color:var(--primary); margin-bottom:8px;"><i class="fas fa-server" style="color:var(--accent);"></i> Arquitectura del sistema</h4>
+                <pre style="font-family:'Inter',sans-serif; line-height:1.8; font-size:0.85rem; color:var(--text-muted); white-space:pre-wrap;">
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend (React/Vue)                     │
+│              Aplicación web responsive y SPA               │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  API Backend (Node.js/Django)              │
+│               Lógica de negocio y endpoints REST           │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 Base de Datos (PostgreSQL)                 │
+│        Almacenamiento de clientes, pedidos, inventario     │
+└─────────────────────────────────────────────────────────────┘</pre>
+            </div>
+
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-text"><strong>Preparación del entorno:</strong> Verificar que la infraestructura cumpla con los requisitos técnicos.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-text"><strong>Configuración de la base de datos:</strong> Crear estructura, ejecutar migraciones y poblar tablas maestras.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-text"><strong>Configuración de almacenamiento:</strong> Configurar servicio para imágenes de productos (Cloudinary, AWS S3).</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">4</div>
+                    <div class="step-text"><strong>Despliegue del backend:</strong> Publicar API con Docker, configurando variables de entorno de producción.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">5</div>
+                    <div class="step-text"><strong>Despliegue del frontend:</strong> Publicar build de producción en servidor web o CDN.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">6</div>
+                    <div class="step-text"><strong>Configuración de dominio + SSL:</strong> Configurar HTTPS y copias de seguridad automáticas.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">7</div>
+                    <div class="step-text"><strong>Smoke tests y capacitación:</strong> Verificar funciones críticas y capacitar al equipo de Albor Velas.</div>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:24px;">
+                <div style="background:var(--bg); border-radius:var(--radius); padding:20px 24px; border:1px solid var(--border);">
+                    <h4 style="color:var(--primary);"><i class="fas fa-microchip" style="color:var(--accent);"></i> Servidor (mínimo)</h4>
+                    <ul style="list-style:none; padding:0; margin-top:8px;">
+                        <li>• CPU: 2 núcleos</li>
+                        <li>• RAM: 4 GB</li>
+                        <li>• Almacenamiento: 20 GB SSD</li>
+                        <li>• OS: Linux (Ubuntu 22.04+)</li>
+                        <li>• BD: PostgreSQL 14+ / MySQL 8+</li>
+                        <li>• Certificado SSL vigente</li>
+                    </ul>
+                </div>
+                <div style="background:var(--bg); border-radius:var(--radius); padding:20px 24px; border:1px solid var(--border);">
+                    <h4 style="color:var(--primary);"><i class="fas fa-laptop" style="color:var(--accent);"></i> Cliente / Usuario final</h4>
+                    <ul style="list-style:none; padding:0; margin-top:8px;">
+                        <li>• Navegador actualizado (Chrome, Firefox, Edge, Safari)</li>
+                        <li>• Conexión a internet de banda ancha</li>
+                        <li>• Desktop, laptop, tablet o smartphone</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 6: SOPORTE POST-ENTREGA                               -->
+        <!-- ============================================================ -->
+        <section id="sec-soporte">
+            <h2 class="section-title">
+                <i class="fas fa-headset"></i> 6. Soporte y Seguimiento Post-Entrega
+                <span class="badge-step">SLA definido</span>
+            </h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4><i class="fas fa-life-ring"></i> Mesa de ayuda</h4>
+                    <p>Canal de atención (correo y/o chat) para resolver dudas e incidencias, con SLA definido según criticidad.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-ticket-alt"></i> Reporte de incidencias</h4>
+                    <p>Sistema de tickets (Freshdesk, Zendesk) para registrar errores o solicitudes, clasificados por prioridad.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-chart-line"></i> Monitoreo continuo</h4>
+                    <p>Herramientas de observabilidad (logs, métricas) para detectar fallos proactivamente.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-sync-alt"></i> Mantenimiento</h4>
+                    <p><strong>Correctivo:</strong> Corrección de defectos en producción.<br><strong>Evolutivo:</strong> Mejoras y nuevas funcionalidades periódicas.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-smile"></i> Encuestas de satisfacción</h4>
+                    <p>Revisiones periódicas con encuestas breves para retroalimentar el backlog de mejoras.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-clock"></i> SLA</h4>
+                    <ul>
+                        <li><strong>Crítica:</strong> &lt; 4 horas</li>
+                        <li><strong>Alta:</strong> &lt; 24 horas</li>
+                        <li><strong>Media:</strong> &lt; 48 horas</li>
+                        <li><strong>Baja:</strong> &lt; 1 semana</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 7: DOCUMENTACIÓN                                      -->
+        <!-- ============================================================ -->
+        <section id="sec-documentacion">
+            <h2 class="section-title">
+                <i class="fas fa-file-alt"></i> 7. Documentación del Proyecto
+                <span class="badge-step">10 herramientas</span>
+            </h2>
+
+            <div class="doc-grid">
+                <div class="doc-item">
+                    <i class="fab fa-github"></i>
+                    <div><div class="doc-name">Repositorio Git</div><div class="doc-desc">Código fuente, ramas, PR</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-book"></i>
+                    <div><div class="doc-name">Wiki (Confluence/GitHub)</div><div class="doc-desc">Requisitos, arquitectura</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-user-graduate"></i>
+                    <div><div class="doc-name">Manual de usuario</div><div class="doc-desc">Guía para el equipo</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-tools"></i>
+                    <div><div class="doc-name">Manual técnico</div><div class="doc-desc">Instalación y arquitectura</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-history"></i>
+                    <div><div class="doc-name">CHANGELOG.md</div><div class="doc-desc">Registro de cambios</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-tasks"></i>
+                    <div><div class="doc-name">Gestor de proyecto</div><div class="doc-desc">Jira / Trello / GitHub Projects</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <div><div class="doc-name">Diagramas</div><div class="doc-desc">draw.io / Lucidchart</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-code"></i>
+                    <div><div class="doc-name">Documentación API</div><div class="doc-desc">Swagger / OpenAPI</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-clipboard-check"></i>
+                    <div><div class="doc-name">ADR</div><div class="doc-desc">Decisiones arquitectónicas</div></div>
+                </div>
+                <div class="doc-item">
+                    <i class="fas fa-video"></i>
+                    <div><div class="doc-name">Videotutoriales</div><div class="doc-desc">Capacitación visual</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 8: CRONOGRAMA (NUEVO)                                 -->
+        <!-- ============================================================ -->
+        <section id="sec-cronograma">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-alt"></i> 8. Cronograma de Implementación
+                <span class="badge-step">13 semanas</span>
+            </h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Actividades</th>
+                            <th>Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label">Fase 1</td>
+                            <td>Configuración del entorno, desarrollo de autenticación y gestión de clientes</td>
+                            <td>3 semanas</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fase 2</td>
+                            <td>Desarrollo de gestión de pedidos e inventario</td>
+                            <td>3 semanas</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fase 3</td>
+                            <td>Desarrollo de reportes y notificaciones</td>
+                            <td>2 semanas</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fase 4</td>
+                            <td>Pruebas (unitarias, integración, sistema)</td>
+                            <td>2 semanas</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fase 5</td>
+                            <td>Pruebas de aceptación (UAT) con el equipo de Albor Velas</td>
+                            <td>1 semana</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fase 6</td>
+                            <td>Corrección de errores y despliegue</td>
+                            <td>1 semana</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fase 7</td>
+                            <td>Capacitación y soporte inicial</td>
+                            <td>1 semana</td>
+                        </tr>
+                        <tr style="background:var(--primary); color:#fff; font-weight:700;">
+                            <td colspan="2" style="text-align:right; color:#fff;"><strong>TOTAL</strong></td>
+                            <td style="color:#fff;"><strong>13 semanas (≈ 3 meses)</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 9: ROLES DEL EQUIPO (NUEVO)                           -->
+        <!-- ============================================================ -->
+        <section id="sec-roles">
+            <h2 class="section-title">
+                <i class="fas fa-users"></i> 9. Roles del Equipo de Desarrollo
+                <span class="badge-step">6 roles</span>
+            </h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4><i class="fas fa-user-tie"></i> Product Owner</h4>
+                    <p>Representa a Albor Velas y Detalles, gestiona el backlog, prioriza requisitos y asegura que el producto entregue valor al negocio.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-user-cog"></i> Scrum Master</h4>
+                    <p>Facilita el proceso ágil, elimina impedimentos, asegura el cumplimiento de sprints y promueve las mejores prácticas.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-code"></i> Desarrollador Frontend</h4>
+                    <p>Implementa la interfaz de usuario responsive, asegurando una experiencia óptima en todos los dispositivos.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-server"></i> Desarrollador Backend</h4>
+                    <p>Implementa la API, lógica de negocio, base de datos e integraciones con servicios externos.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-vial"></i> QA / Tester</h4>
+                    <p>Diseña y ejecuta casos de prueba, reporta defectos y garantiza la calidad del producto antes de cada entrega.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-cloud"></i> DevOps</h4>
+                    <p>Gestiona la infraestructura, despliegues continuos, monitoreo y asegura la disponibilidad del sistema.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 10: FLUJO DE INCIDENCIAS (NUEVO)                      -->
+        <!-- ============================================================ -->
+        <section id="sec-flujo">
+            <h2 class="section-title">
+                <i class="fas fa-project-diagram"></i> 10. Flujo de Atención de Incidencias
+                <span class="badge-step">Post-producción</span>
+            </h2>
+
+            <div class="flow-diagram">
+                <span class="flow-step"><i class="fas fa-user"></i> Usuario reporta</span>
+                <span class="flow-arrow"> → </span>
+                <span class="flow-step"><i class="fas fa-ticket-alt"></i> Ticket creado</span>
+                <span class="flow-arrow"> → </span>
+                <span class="flow-step"><i class="fas fa-tag"></i> Clasificación</span>
+                <span class="flow-arrow"> → </span>
+                <span class="flow-step"><i class="fas fa-user-check"></i> Asignación</span>
+                <span class="flow-arrow"> → </span>
+                <span class="flow-step"><i class="fas fa-wrench"></i> Diagnóstico</span>
+                <span class="flow-arrow"> → </span>
+                <span class="flow-step"><i class="fas fa-flask"></i> Pruebas staging</span>
+                <span class="flow-arrow"> → </span>
+                <span class="flow-step"><i class="fas fa-rocket"></i> Despliegue</span>
+                <span class="flow-arrow"> → </span>
+                <span class="flow-step"><i class="fas fa-check-circle"></i> Cierre</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:20px;">
+                <div style="background:var(--bg); border-radius:var(--radius); padding:16px 20px; text-align:center; border:1px solid var(--border);">
+                    <span style="display:block; font-size:1.4rem; color:var(--accent);"><i class="fas fa-clock"></i></span>
+                    <strong style="font-size:0.9rem;">Tiempo promedio</strong>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">Crítico: &lt; 4h<br>Alto: &lt; 24h</p>
+                </div>
+                <div style="background:var(--bg); border-radius:var(--radius); padding:16px 20px; text-align:center; border:1px solid var(--border);">
+                    <span style="display:block; font-size:1.4rem; color:var(--accent);"><i class="fas fa-users"></i></span>
+                    <strong style="font-size:0.9rem;">Equipo responsable</strong>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">QA + Backend + DevOps</p>
+                </div>
+                <div style="background:var(--bg); border-radius:var(--radius); padding:16px 20px; text-align:center; border:1px solid var(--border);">
+                    <span style="display:block; font-size:1.4rem; color:var(--accent);"><i class="fas fa-sync-alt"></i></span>
+                    <strong style="font-size:0.9rem;">Mantenimiento</strong>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">Correctivo + Evolutivo</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 11: PRESUPUESTO (NUEVO)                               -->
+        <!-- ============================================================ -->
+        <section id="sec-presupuesto">
+            <h2 class="section-title">
+                <i class="fas fa-coins"></i> 11. Presupuesto Estimado
+                <span class="badge-step">Opcional</span>
+            </h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Descripción</th>
+                            <th>Costo estimado (COP)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label">Infraestructura</td>
+                            <td>Servidor cloud (VPS) + Base de datos (12 meses)</td>
+                            <td>$2.400.000</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Dominio + SSL</td>
+                            <td>Registro de dominio y certificado SSL anual</td>
+                            <td>$120.000</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Almacenamiento</td>
+                            <td>Servicio para imágenes de productos (Cloudinary/S3)</td>
+                            <td>$600.000</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Licencias</td>
+                            <td>Herramientas de desarrollo y pruebas (Jira, Freshdesk, etc.)</td>
+                            <td>$800.000</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Capacitación</td>
+                            <td>Materiales y sesiones de entrenamiento para el equipo</td>
+                            <td>$500.000</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Soporte post-entrega</td>
+                            <td>Mantenimiento y soporte (3 meses)</td>
+                            <td>$1.200.000</td>
+                        </tr>
+                        <tr class="budget-total">
+                            <td colspan="2"><strong>TOTAL ESTIMADO</strong></td>
+                            <td><strong>$5.620.000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">
+                <i class="fas fa-info-circle" style="color:var(--accent);"></i> Los costos son aproximados y pueden variar según el proveedor y la región.
+            </p>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- CONCLUSIONES                                                  -->
+        <!-- ============================================================ -->
+        <section id="sec-conclusiones">
+            <h2 class="section-title">
+                <i class="fas fa-flag-checkered"></i> Conclusiones
+                <span class="badge-step">Beneficios</span>
+            </h2>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-item">
+                    <h4><i class="fas fa-check-circle" style="color:var(--accent);"></i> Calidad asegurada</h4>
+                    <p>La aplicación del estándar ISO/IEC 25010 permite aterrizar la calidad en indicadores concretos y medibles, definiendo un plan de pruebas trazable y criterios de aceptación objetivos.</p>
+                </div>
+                <div class="conclusion-item">
+                    <h4><i class="fas fa-code-branch" style="color:var(--accent);"></i> Control total</h4>
+                    <p>La gestión de configuración y el despliegue organizado (entornos separados, control de cambios) evitan sorpresas al lanzar a producción.</p>
+                </div>
+                <div class="conclusion-item">
+                    <h4><i class="fas fa-headset" style="color:var(--accent);"></i> Soporte continuo</h4>
+                    <p>El soporte post-proyecto asegura que la calidad no termina con la entrega: el sistema evoluciona con el negocio.</p>
+                </div>
+                <div class="conclusion-item" style="border-top-color:var(--primary);">
+                    <h4><i class="fas fa-star" style="color:var(--accent);"></i> Beneficios para Albor Velas</h4>
+                    <ul style="list-style:none; padding:0; color:var(--text-muted);">
+                        <li>✓ Eliminación de pérdida de información</li>
+                        <li>✓ Atención al cliente en segundos</li>
+                        <li>✓ Inventario actualizado en tiempo real</li>
+                        <li>✓ Decisiones estratégicas basadas en datos</li>
+                        <li>✓ Escalabilidad sostenible</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- FOOTER                                                        -->
+        <!-- ============================================================ -->
+        <footer class="plan-footer">
+            <div>
+                <strong><i class="fas fa-crown" style="color:var(--accent);"></i> Albor Velas y Detalles</strong>
+                <span style="margin-left:16px;">Plan de Calidad, Pruebas y Despliegue</span>
+            </div>
+            <div>
+                <i class="fas fa-calendar-alt"></i> Agosto 2026 &middot;
+                <i class="fas fa-user-graduate"></i> Mateo Toro Alvarez &middot;
+                <i class="fas fa-university"></i> Fundación Universitaria Católica del Norte
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
